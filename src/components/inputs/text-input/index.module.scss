@@ -1,0 +1,19 @@
+@import "@/styles/variables.scss";
+
+.TextInputWrapper {
+  display: flex;
+  flex-direction: column;
+
+  input {
+    padding: 8px 12px;
+    border-radius: 0;
+    border: 1px solid $light-gray-color;
+    font-size: 14px;
+  }
+
+  .error {
+    margin-top: 2px;
+    color: $danger-color;
+    font-size: 12px;
+  }
+}

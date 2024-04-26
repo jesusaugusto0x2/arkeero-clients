@@ -3,8 +3,6 @@ export enum ClientStatus {
   ACTIVE = "active",
 }
 
-// export type ClientAccunt = "master" | "owner" | "basic";
-
 export enum ClientAccount {
   MASTER = "master",
   OWNER = "owner",
