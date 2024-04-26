@@ -1,0 +1,14 @@
+@import "./variables.scss";
+
+.inputError {
+  margin-top: 2px;
+  color: $danger-color;
+  font-size: $fs-small;
+}
+
+.textInput {
+  padding: $input-base-padding;
+  border-radius: $input-border-radius;
+  border: 1px solid $light-gray-color;
+  font-size: $fs-medium;
+}

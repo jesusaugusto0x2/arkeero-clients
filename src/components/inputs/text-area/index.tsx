@@ -1,14 +1,14 @@
-import React, { InputHTMLAttributes, forwardRef } from "react";
+import React, { TextareaHTMLAttributes, forwardRef } from "react";
 import styles from "./index.module.scss";
 
-type Props = InputHTMLAttributes<HTMLInputElement> & {
+type Props = TextareaHTMLAttributes<HTMLTextAreaElement> & {
   error?: string;
 };
 
-export const TextInput = forwardRef<HTMLInputElement, Props>(
+export const TextArea = forwardRef<HTMLTextAreaElement, Props>(
   ({ onChange, onBlur, name, error, ...props }, ref) => (
-    <div className={styles.TextInputWrapper}>
-      <input
+    <div className={styles.TextAreaWrapper}>
+      <textarea
         {...props}
         ref={ref}
         onChange={onChange}
@@ -20,4 +20,4 @@ export const TextInput = forwardRef<HTMLInputElement, Props>(
   )
 );
 
-TextInput.displayName = "TextInput";
+TextArea.displayName = "TextArea";

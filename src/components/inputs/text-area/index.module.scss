@@ -1,12 +1,13 @@
 @import "@/styles/variables.scss";
 @import "@/styles/classes.scss";
 
-.TextInputWrapper {
+.TextAreaWrapper {
   display: flex;
   flex-direction: column;
 
-  input {
+  textarea {
     @extend .textInput;
+    resize: none;
   }
 
   .error {

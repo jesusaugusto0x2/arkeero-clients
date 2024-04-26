@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, TextInput } from "@/components";
+import { Button, TextArea, TextInput } from "@/components";
 import { useApiCall } from "@/hooks";
 import { Client } from "@/models";
 
@@ -26,6 +26,7 @@ export default function Home() {
       </ul>
       <Button text="Create Client" />
       <TextInput />
+      <TextArea rows={5} />
     </main>
   );
 }
