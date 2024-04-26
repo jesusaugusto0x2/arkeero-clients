@@ -1,5 +1,30 @@
+@import "@/styles/variables.scss";
+
 .Home {
   display: flex;
   flex-direction: column;
   padding: 12px;
+  justify-content: center;
+  align-items: center;
+  color: $dark-color;
+  text-align: center;
+  height: calc(100vh - 82px);
+
+  section {
+    margin-bottom: 20%;
+
+    h1 {
+      font-size: 3.8rem;
+      margin: 0;
+    }
+
+    h3 {
+      margin-top: 12px;
+      font-weight: $fw-medium;
+    }
+
+    button {
+      margin-top: 48px;
+    }
+  }
 }
