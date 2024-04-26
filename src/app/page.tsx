@@ -1,68 +1,21 @@
-"use client";
-
-import {
-  Button,
-  ClientCard,
-  Modal,
-  Tabs,
-  TextArea,
-  TextInput,
-} from "@/components";
-import { TabPane } from "@/components/tabs/tab-pane";
-import { useApiCall } from "@/hooks";
-import { Client, ClientAccount, ClientStatus } from "@/models";
-import { useState } from "react";
+import styles from "./page.module.scss";
+import { Header } from "@/components/header";
+import { Button } from "@/components/button";
+import Link from "next/link";
 
 export default function Home() {
-  const [modalVisible, setModalVisible] = useState(false);
-
-  const { data, loading, error } = useApiCall<Client[]>(
-    process.env.NEXT_PUBLIC_BASE_URL
-  );
-
-  if (loading) {
-    return <main>Loading...</main>;
-  }
-
-  if (error) {
-    return <main>Error</main>;
-  }
-
   return (
-    <main>
-      <ul>
-        {data?.map((client) => (
-          <li key={client.id}>{client.name}</li>
-        ))}
-      </ul>
-      <Button
-        text="Show Modal"
-        onClick={() => setModalVisible((prevState) => !prevState)}
-      />
-      <TextInput />
-      <TextArea rows={5} />
-      <ClientCard
-        name="Test Client"
-        accountType={ClientAccount.BASIC}
-        description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-        status={ClientStatus.ACTIVE}
-      />
-      <Modal
-        visible={modalVisible}
-        onClose={() => setModalVisible(false)}
-        onButtonClick={() => setModalVisible(false)}
-      >
-        <h1>Hola</h1>
-      </Modal>
-
-      <Tabs>
-        <TabPane title="First Element">
-          <h1>First</h1>
-        </TabPane>
-        <TabPane title="Second Element">
-          <h1>Second</h1>
-        </TabPane>
-      </Tabs>
-    </main>
+    <>
+      <Header />
+      <main className={styles.Home}>
+        <section>
+          <h1>👋 Welcome!</h1>
+          <h3>{"Now it's way much easier to look for your client data!"}</h3>
+          <Link href="/clients">
+            <Button text="Start" size="large" />
+          </Link>
+        </section>
+      </main>
+    </>
   );
 }
