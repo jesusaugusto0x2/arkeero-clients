@@ -1,6 +1,14 @@
 "use client";
 
-import { Button, ClientCard, Modal, TextArea, TextInput } from "@/components";
+import {
+  Button,
+  ClientCard,
+  Modal,
+  Tabs,
+  TextArea,
+  TextInput,
+} from "@/components";
+import { TabPane } from "@/components/tabs/tab-pane";
 import { useApiCall } from "@/hooks";
 import { Client, ClientAccount, ClientStatus } from "@/models";
 import { useState } from "react";
@@ -46,6 +54,15 @@ export default function Home() {
       >
         <h1>Hola</h1>
       </Modal>
+
+      <Tabs>
+        <TabPane title="First Element">
+          <h1>First</h1>
+        </TabPane>
+        <TabPane title="Second Element">
+          <h1>Second</h1>
+        </TabPane>
+      </Tabs>
     </main>
   );
 }

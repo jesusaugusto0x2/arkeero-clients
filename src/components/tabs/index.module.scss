@@ -1,0 +1,37 @@
+@import "@/styles/variables.scss";
+
+.Tabs {
+  ul {
+    padding: 4px;
+    background-color: #efefef;
+    align-items: center;
+    display: flex;
+    margin: 0;
+    list-style: none;
+    border-radius: 4px;
+  }
+
+  .tabButton {
+    transition-property: all;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 0.15s;
+    padding: 4px 12px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: $fw-bold;
+    font-size: $fs-medium;
+    color: $light-gray-color;
+
+    &.isActive {
+      background-color: #fff;
+      color: $dark-color;
+    }
+  }
+
+  .tabPane {
+    margin-top: 4px;
+    padding: 4px;
+    border: 1px solid #efefef;
+  }
+}
