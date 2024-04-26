@@ -1,0 +1,30 @@
+@import "@/styles/variables.scss";
+
+.Button {
+  padding: 8px 12px;
+  border: 1px solid $light-gray-color;
+  gap: 24px;
+  color: #fff;
+  cursor: pointer;
+
+  &:hover {
+    filter: opacity(0.85);
+  }
+
+  &.primary {
+    background-color: $primary-color;
+    border-radius: 4px;
+    color: #fff;
+  }
+
+  &.disabled {
+    filter: grayscale(1);
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  span {
+    font-size: $fs-medium;
+    font-weight: $fw-bold;
+  }
+}

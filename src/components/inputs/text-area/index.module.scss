@@ -1,0 +1,16 @@
+@import "@/styles/variables.scss";
+@import "@/styles/classes.scss";
+
+.TextAreaWrapper {
+  display: flex;
+  flex-direction: column;
+
+  textarea {
+    @extend .textInput;
+    resize: none;
+  }
+
+  .error {
+    @extend .inputError;
+  }
+}

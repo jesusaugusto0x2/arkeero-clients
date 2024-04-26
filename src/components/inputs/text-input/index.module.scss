@@ -1,0 +1,15 @@
+@import "@/styles/variables.scss";
+@import "@/styles/classes.scss";
+
+.TextInputWrapper {
+  display: flex;
+  flex-direction: column;
+
+  input {
+    @extend .textInput;
+  }
+
+  .error {
+    @extend .inputError;
+  }
+}
