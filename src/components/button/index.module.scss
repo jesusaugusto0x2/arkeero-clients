@@ -1,0 +1,25 @@
+@import "@/styles/variables.scss";
+
+.Button {
+  padding: 8px 12px;
+  border: 1px solid $light-gray;
+  gap: 24px;
+  color: #fff;
+  cursor: pointer;
+
+  &.primary {
+    background-color: $primary;
+    color: #fff;
+  }
+
+  &.disabled {
+    filter: grayscale(1);
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  span {
+    font-size: $size-parragraph;
+    font-weight: $weight-bold;
+  }
+}
