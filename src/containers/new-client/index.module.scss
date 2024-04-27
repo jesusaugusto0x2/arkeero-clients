@@ -1,6 +1,9 @@
 @import "@/styles/variables.scss";
+@import "@/styles/classes.scss";
 
 .NewClient {
+  @extend .responsiveWidths;
+
   display: flex;
   flex-direction: column;
 

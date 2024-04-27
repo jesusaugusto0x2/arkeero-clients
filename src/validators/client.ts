@@ -1,3 +1,4 @@
+import { ClientAccount } from "@/models";
 import * as yup from "yup";
 
 export const clientValidatorSchema = yup
@@ -16,5 +17,8 @@ export const clientValidatorSchema = yup
         "Description must be at least 5 characters long",
         (val) => !(val.length < 5)
       ),
+    accountType: yup.mixed<ClientAccount>().oneOf(Object.values(ClientAccount)),
+    status: yup.string(),
+    contacts: yup.string(),
   })
   .required();

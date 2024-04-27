@@ -3,4 +3,6 @@
 .NewClient {
   padding: $main-padding;
   height: $calc-main-height;
+  display: flex;
+  justify-content: center;
 }

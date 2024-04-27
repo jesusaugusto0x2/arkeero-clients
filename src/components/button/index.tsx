@@ -23,7 +23,9 @@ export const Button: FC<Props> = ({
 }) => (
   <button
     {...props}
-    className={cx(styles.Button, styles[variant], styles[size], className)}
+    className={cx(styles.Button, styles[variant], styles[size], className, {
+      [styles.disabled]: props.disabled,
+    })}
   >
     {text && <span>{text}</span>}
     {icon}
