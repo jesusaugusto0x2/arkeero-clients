@@ -1,0 +1,50 @@
+@import "@/styles/variables.scss";
+
+.SwitchWrapper {
+  display: flex;
+  flex-direction: column;
+
+  input {
+    position: relative;
+    appearance: none;
+    outline: none;
+    -webkit-appearance: none;
+    width: 44px;
+    height: 24px;
+    background-color: #cccccc;
+    border-radius: 50px;
+    transition: all 0.3s ease-in-out;
+    margin: 0;
+    padding: 0;
+    min-width: 44px;
+
+    &:before {
+      content: "";
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      width: 20px;
+      height: 20px;
+      background-color: #fff;
+      border-radius: 50%;
+      transition: all 0.2s ease-in-out;
+    }
+
+    &:checked {
+      background: #4ed164;
+      background-size: 1em;
+
+      &:before {
+        transform: translateX(100%);
+      }
+    }
+
+    &.background {
+      background: #ce4949;
+
+      &:checked {
+        background: #4ed164;
+      }
+    }
+  }
+}
