@@ -1,7 +1,7 @@
 import { Header } from "@/components/header";
 import { Client } from "@/models";
-import styles from "./page.module.scss";
 import { Clients } from "@/containers";
+import styles from "./page.module.scss";
 
 async function getData(): Promise<Client[]> {
   const resp = await fetch(`${process.env.BASE_URL}`, {

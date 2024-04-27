@@ -1,3 +1,5 @@
+"use client";
+
 import { useEffect } from "react";
 
 type Ref<T> = { current: T | null };
