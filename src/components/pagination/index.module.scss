@@ -1,0 +1,36 @@
+@import "@/styles/variables.scss";
+
+.Pagination {
+  display: flex;
+  color: $secondary-color;
+  gap: 20px;
+  width: 100%;
+  align-items: center;
+
+  span {
+    font-size: $fs-medium;
+
+    &:hover,
+    &.selected {
+      color: $dark-color;
+      font-weight: $fw-medium;
+    }
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  // Horizontal alignments
+  &.horizontal-start {
+    justify-content: start;
+  }
+
+  &.horizontal-center {
+    justify-content: center;
+  }
+
+  &.horizontal-end {
+    justify-content: end;
+  }
+}

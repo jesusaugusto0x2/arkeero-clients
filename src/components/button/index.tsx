@@ -2,7 +2,7 @@ import { ButtonHTMLAttributes, FC, ReactNode } from "react";
 import styles from "./index.module.scss";
 import cx from "classnames";
 
-type ButtonVariant = "primary" | "default";
+type ButtonVariant = "primary" | "default" | "link";
 type ButtonSize = "large" | "medium" | "small";
 
 type Props = ButtonHTMLAttributes<HTMLButtonElement> & {
