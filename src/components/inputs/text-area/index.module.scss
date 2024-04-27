@@ -13,4 +13,8 @@
   .error {
     @extend .inputError;
   }
+
+  label {
+    @extend .label;
+  }
 }

@@ -14,6 +14,7 @@ export const ClientForm: FC = () => {
       description: "",
       accountType: ClientAccount.BASIC,
       status: false,
+      contacts: "",
     },
   });
 
@@ -27,27 +28,49 @@ export const ClientForm: FC = () => {
         name="name"
         control={control}
         rules={{ required: true }}
-        render={({ field }) => <TextInput {...field} />}
+        render={({ field }) => (
+          <TextInput {...field} label="I. Name" placeholder="Ex: Jane Doe" />
+        )}
       />
       <Controller
         name="description"
         control={control}
         rules={{ required: true }}
-        render={({ field }) => <TextArea {...field} />}
+        render={({ field }) => (
+          <TextArea
+            {...field}
+            label="II. Description"
+            placeholder="Ex: I love skating outside and beach sunsets!"
+          />
+        )}
       />
       <Controller
         name="accountType"
         control={control}
         rules={{ required: true }}
         render={({ field }) => (
-          <Select {...field} options={CLIENT_ACCOUNT_OPTIONS} />
+          <Select
+            {...field}
+            label="III. Account Type"
+            options={CLIENT_ACCOUNT_OPTIONS}
+          />
         )}
       />
       <Controller
         name="status"
         control={control}
-        rules={{ required: true }}
-        render={({ field }) => <Switch {...field} />}
+        render={({ field }) => <Switch {...field} label="IV. Active Status" />}
+      />
+      <Controller
+        name="contacts"
+        control={control}
+        render={({ field }) => (
+          <TextInput
+            {...field}
+            label={`V. Contacts - (separated by ",")`}
+            placeholder={`Ex: Juan, Camilo, Silvia, Jesus`}
+          />
+        )}
       />
       <Button text="Save Client" type="submit" />
     </form>

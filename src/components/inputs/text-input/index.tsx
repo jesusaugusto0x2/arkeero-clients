@@ -2,19 +2,15 @@ import React, { InputHTMLAttributes, forwardRef } from "react";
 import styles from "./index.module.scss";
 
 type Props = InputHTMLAttributes<HTMLInputElement> & {
+  label?: string;
   error?: string;
 };
 
 export const TextInput = forwardRef<HTMLInputElement, Props>(
-  ({ onChange, onBlur, name, error, ...props }, ref) => (
+  ({ label, error, ...props }, ref) => (
     <div className={styles.TextInputWrapper}>
-      <input
-        {...props}
-        ref={ref}
-        onChange={onChange}
-        onBlur={onBlur}
-        name={name}
-      />
+      {label && <label htmlFor={props.name}>{label}</label>}
+      <input {...props} ref={ref} />
       {error && <small className={styles.error}>{error}</small>}
     </div>
   )

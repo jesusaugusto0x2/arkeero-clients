@@ -1,9 +1,18 @@
 @import "@/styles/variables.scss";
 @import "@/styles/classes.scss";
 
-.Select {
-  @extend .baseInput;
-  background-color: #fff;
+.SelectWrapper {
+  display: flex;
+  flex-direction: column;
+
+  select {
+    @extend .baseInput;
+    background-color: #fff;
+  }
+
+  label {
+    @extend .label;
+  }
 
   .error {
     @extend .inputError;

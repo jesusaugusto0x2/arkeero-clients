@@ -1,8 +1,13 @@
 @import "@/styles/variables.scss";
+@import "@/styles/classes.scss";
 
 .SwitchWrapper {
   display: flex;
   flex-direction: column;
+
+  label {
+    @extend .label;
+  }
 
   input {
     position: relative;
@@ -11,12 +16,13 @@
     -webkit-appearance: none;
     width: 44px;
     height: 24px;
-    background-color: #cccccc;
+    background-color: $disabled-color;
     border-radius: 50px;
     transition: all 0.3s ease-in-out;
     margin: 0;
     padding: 0;
     min-width: 44px;
+    cursor: pointer;
 
     &:before {
       content: "";
@@ -31,19 +37,11 @@
     }
 
     &:checked {
-      background: #4ed164;
+      background: $primary-color;
       background-size: 1em;
 
       &:before {
         transform: translateX(100%);
-      }
-    }
-
-    &.background {
-      background: #ce4949;
-
-      &:checked {
-        background: #4ed164;
       }
     }
   }

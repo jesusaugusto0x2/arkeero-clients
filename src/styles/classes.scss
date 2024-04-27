@@ -12,3 +12,10 @@
   border: 1px solid $light-gray-color;
   font-size: $fs-medium;
 }
+
+.label {
+  font-size: $fs-small;
+  color: $dark-color;
+  font-weight: $fw-medium;
+  margin-bottom: 4px;
+}
