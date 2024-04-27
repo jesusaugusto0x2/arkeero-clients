@@ -19,3 +19,8 @@ $fw-bold: 700;
 // inputs
 $input-base-padding: 8px 12px;
 $input-border-radius: 4px;
+
+// globals
+$nav-height: 58px;
+$main-padding: 12px;
+$calc-main-height: calc(100vh - calc($nav-height + $main-padding * 2));

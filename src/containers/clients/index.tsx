@@ -6,7 +6,7 @@ import { FC, useState, useMemo } from "react";
 import { useDebounce } from "@/hooks";
 import styles from "./index.module.scss";
 
-const PAGE_SIZE = 3;
+const PAGE_SIZE = 4;
 
 type Props = {
   clients: Client[];
@@ -35,21 +35,24 @@ export const Clients: FC<Props> = ({ clients }) => {
 
   return (
     <section className={styles.Clients}>
-      <TextInput
-        placeholder="Search clients by name"
-        onChange={(e) => setSearchValue(e.target.value)}
-      />
-      <ul>
-        {filteredClients.map((client) => (
-          <ClientCard
-            key={client.id}
-            accountType={client.accountType}
-            status={client.status}
-            description={client.description}
-            name={client.name}
-          />
-        ))}
-      </ul>
+      <div>
+        <h1>Clients List</h1>
+        <TextInput
+          placeholder="Search clients by name"
+          onChange={(e) => setSearchValue(e.target.value)}
+        />
+        <ul>
+          {filteredClients.map((client) => (
+            <ClientCard
+              key={client.id}
+              accountType={client.accountType}
+              status={client.status}
+              description={client.description}
+              name={client.name}
+            />
+          ))}
+        </ul>
+      </div>
       <Pagination
         totalPages={totalPages}
         currentPage={page}

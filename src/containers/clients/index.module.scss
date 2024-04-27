@@ -1,4 +1,8 @@
 .Clients {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
   ul {
     display: flex;
     flex-direction: column;
