@@ -5,10 +5,17 @@ import { Button } from "@/components/button";
 import { handleClientData } from "@/app/actions";
 import { CLIENT_ACCOUNT_OPTIONS } from "@/consts";
 import { ClientAccount } from "@/models";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { clientValidatorSchema } from "@/validators/client";
 import styles from "./index.module.scss";
 
 export const ClientForm: FC = () => {
-  const { handleSubmit, control } = useForm<any>({
+  const {
+    handleSubmit,
+    control,
+    formState: { errors },
+  } = useForm<any>({
+    resolver: yupResolver(clientValidatorSchema),
     defaultValues: {
       name: "",
       description: "",
@@ -23,13 +30,18 @@ export const ClientForm: FC = () => {
   });
 
   return (
-    <form className={styles.ClientForm} action={action}>
+    <form className={styles.ClientForm}>
       <Controller
         name="name"
         control={control}
         rules={{ required: true }}
         render={({ field }) => (
-          <TextInput {...field} label="I. Name" placeholder="Ex: Jane Doe" />
+          <TextInput
+            {...field}
+            label="I. Name"
+            placeholder="Ex: Jane Doe"
+            error={errors.name?.message as string}
+          />
         )}
       />
       <Controller
@@ -41,6 +53,7 @@ export const ClientForm: FC = () => {
             {...field}
             label="II. Description"
             placeholder="Ex: I love skating outside and beach sunsets!"
+            error={errors.description?.message as string}
           />
         )}
       />
@@ -72,7 +85,7 @@ export const ClientForm: FC = () => {
           />
         )}
       />
-      <Button text="Save Client" type="submit" />
+      <Button text="Save Client" onClick={action} />
     </form>
   );
 };

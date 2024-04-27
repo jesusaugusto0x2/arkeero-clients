@@ -13,7 +13,7 @@ export const CLIENT_ACCOUNT_LABELS: { [key in ClientAccount]: string } = {
 
 export const CLIENT_ACCOUNT_OPTIONS = [
   {
-    label: "Active",
+    label: "Basic",
     value: ClientAccount.BASIC,
   },
   {
