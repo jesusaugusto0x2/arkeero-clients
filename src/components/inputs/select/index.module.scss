@@ -1,13 +1,9 @@
 @import "@/styles/variables.scss";
 @import "@/styles/classes.scss";
 
-.TextInputWrapper {
-  display: flex;
-  flex-direction: column;
-
-  input {
-    @extend .baseInput;
-  }
+.Select {
+  @extend .baseInput;
+  background-color: #fff;
 
   .error {
     @extend .inputError;

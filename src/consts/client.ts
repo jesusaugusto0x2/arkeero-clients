@@ -10,3 +10,18 @@ export const CLIENT_ACCOUNT_LABELS: { [key in ClientAccount]: string } = {
   [ClientAccount.MASTER]: "Master",
   [ClientAccount.OWNER]: "Owner",
 };
+
+export const CLIENT_ACCOUNT_OPTIONS = [
+  {
+    label: "Active",
+    value: ClientAccount.BASIC,
+  },
+  {
+    label: "Master",
+    value: ClientAccount.MASTER,
+  },
+  {
+    label: "Owner",
+    value: ClientAccount.OWNER,
+  },
+];

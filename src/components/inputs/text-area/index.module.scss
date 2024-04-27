@@ -6,7 +6,7 @@
   flex-direction: column;
 
   textarea {
-    @extend .textInput;
+    @extend .baseInput;
     resize: none;
   }
 

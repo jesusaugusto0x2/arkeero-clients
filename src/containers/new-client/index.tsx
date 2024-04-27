@@ -9,7 +9,7 @@ export const NewClient: FC = () => (
   <section>
     <Tabs>
       <TabPane title="Client One">
-        <ClientForm onSubmit={(data) => console.log(data)} />
+        <ClientForm />
       </TabPane>
       <TabPane title="Client Two">Client Two</TabPane>
     </Tabs>
