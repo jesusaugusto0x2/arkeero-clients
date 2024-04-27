@@ -3,6 +3,12 @@
   flex-direction: column;
   justify-content: space-between;
 
+  div.titleHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
   ul {
     display: flex;
     flex-direction: column;

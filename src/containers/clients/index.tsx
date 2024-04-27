@@ -1,10 +1,11 @@
 "use client";
 
-import { ClientCard, TextInput, Pagination } from "@/components";
+import { ClientCard, TextInput, Pagination, Button } from "@/components";
 import { Client } from "@/models";
 import { FC, useState, useMemo } from "react";
 import { useDebounce } from "@/hooks";
 import styles from "./index.module.scss";
+import Link from "next/link";
 
 const PAGE_SIZE = 4;
 
@@ -36,7 +37,12 @@ export const Clients: FC<Props> = ({ clients }) => {
   return (
     <section className={styles.Clients}>
       <div>
-        <h1>Clients List</h1>
+        <div className={styles.titleHeader}>
+          <h1>Clients List</h1>
+          <Link href="/clients/new">
+            <Button text="Add new client" />
+          </Link>
+        </div>
         <TextInput
           placeholder="Search clients by name"
           onChange={(e) => setSearchValue(e.target.value)}
