@@ -1,4 +1,5 @@
 import { Header } from "@/components/header";
+import { NewClient } from "@/containers/new-client";
 import styles from "./page.module.scss";
 
 export default async function NewClientPage() {
@@ -6,7 +7,7 @@ export default async function NewClientPage() {
     <>
       <Header />
       <main className={styles.NewClient}>
-        <p>New clients page</p>
+        <NewClient />
       </main>
     </>
   );
