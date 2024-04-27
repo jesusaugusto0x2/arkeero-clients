@@ -1,3 +1,5 @@
+"use client";
+
 import { FC, PropsWithChildren, ReactNode, useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
 import { useOutsideClick } from "@/hooks";

@@ -1,0 +1,13 @@
+.Clients {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  ul {
+    display: flex;
+    flex-direction: column;
+    row-gap: 12px;
+    padding: 0;
+    list-style: none;
+  }
+}

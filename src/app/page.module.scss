@@ -3,12 +3,12 @@
 .Home {
   display: flex;
   flex-direction: column;
-  padding: 12px;
+  padding: $main-padding;
   justify-content: center;
   align-items: center;
   color: $dark-color;
   text-align: center;
-  height: calc(100vh - 82px);
+  height: $calc-main-height;
 
   section {
     margin-bottom: 20%;

@@ -18,6 +18,13 @@
     color: #fff;
   }
 
+  &.link {
+    background-color: transparent;
+    padding: 0;
+    border: none;
+    color: $dark-color;
+  }
+
   &.disabled {
     filter: grayscale(1);
     opacity: 0.5;

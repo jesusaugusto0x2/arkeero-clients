@@ -1,0 +1,8 @@
+@import "@/styles/variables.scss";
+
+.Clients {
+  padding: $main-padding;
+  height: $calc-main-height;
+  display: flex;
+  justify-content: center;
+}
