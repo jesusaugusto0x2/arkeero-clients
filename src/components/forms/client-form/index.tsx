@@ -1,16 +1,20 @@
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { Controller, Resolver, useForm } from "react-hook-form";
 import { Select, Switch, TextArea, TextInput } from "@/components/inputs";
 import { Button } from "@/components/button";
 import { handleClientData } from "@/app/actions";
-import { CLIENT_ACCOUNT_OPTIONS } from "@/consts";
-import { ClientAccount, ClientInput } from "@/models";
+import { CLIENT_ACCOUNT_OPTIONS, CLIENT_FORM_DEFAULT_VALUES } from "@/consts";
+import { ClientInput } from "@/models";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { clientValidatorSchema } from "@/validators/client";
-import styles from "./index.module.scss";
 import { Modal } from "@/components/modal";
+import styles from "./index.module.scss";
 
-export const ClientForm: FC = () => {
+type Props = {
+  onFormValuesChange?: (input: Partial<ClientInput>) => void;
+};
+
+export const ClientForm: FC<Props> = ({ onFormValuesChange }) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
 
   const {
@@ -18,17 +22,24 @@ export const ClientForm: FC = () => {
     formState: { errors, isValid },
     handleSubmit,
     reset,
+    watch,
   } = useForm<ClientInput>({
     resolver: yupResolver(clientValidatorSchema) as Resolver<ClientInput | any>,
     mode: "all",
-    defaultValues: {
-      name: "",
-      description: "",
-      accountType: ClientAccount.BASIC,
-      status: "false",
-      contacts: "",
-    },
+    defaultValues: CLIENT_FORM_DEFAULT_VALUES,
   });
+
+  useEffect(() => {
+    if (!onFormValuesChange) {
+      return;
+    }
+
+    const subscription = watch((value) => {
+      onFormValuesChange(value);
+    });
+
+    return () => subscription.unsubscribe();
+  }, [watch, onFormValuesChange]);
 
   const action: () => void = handleSubmit(async (data) => {
     await handleClientData(data);
@@ -36,12 +47,7 @@ export const ClientForm: FC = () => {
 
   return (
     <>
-      <form
-        className={styles.ClientForm}
-        onSubmit={(e) => {
-          e.preventDefault();
-        }}
-      >
+      <form className={styles.ClientForm} onSubmit={(e) => e.preventDefault()}>
         <Controller
           name="name"
           control={control}
@@ -84,7 +90,11 @@ export const ClientForm: FC = () => {
           name="status"
           control={control}
           render={({ field }) => (
-            <Switch {...field} label="IV. Active Status" />
+            <Switch
+              {...field}
+              value={field.value?.toString()}
+              label="IV. Active Status"
+            />
           )}
         />
         <Controller

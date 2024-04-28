@@ -25,3 +25,11 @@ export const CLIENT_ACCOUNT_OPTIONS = [
     value: ClientAccount.OWNER,
   },
 ];
+
+export const CLIENT_FORM_DEFAULT_VALUES = {
+  name: "",
+  description: "",
+  accountType: ClientAccount.BASIC,
+  status: true,
+  contacts: "",
+};

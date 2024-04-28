@@ -22,6 +22,7 @@ export type ClientInput = {
   name: string;
   description: string;
   accountType?: ClientAccount;
-  status?: string | number | readonly string[] | undefined;
+  // status?: string | number | readonly string[] | undefined;
+  status?: boolean;
   contacts?: string;
 };

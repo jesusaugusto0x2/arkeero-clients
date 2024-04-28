@@ -6,12 +6,20 @@ type Props = InputHTMLAttributes<HTMLInputElement> & {
 };
 
 export const Switch = forwardRef<HTMLInputElement, Props>(
-  ({ label, ...props }, ref) => (
-    <div className={styles.SwitchWrapper}>
-      {label && <label htmlFor={props.name}>{label}</label>}
-      <input {...props} ref={ref} className={styles.Switch} type="checkbox" />
-    </div>
-  )
+  ({ label, value, ...props }, ref) => {
+    return (
+      <div className={styles.SwitchWrapper}>
+        {label && <label htmlFor={props.name}>{label}</label>}
+        <input
+          {...props}
+          ref={ref}
+          className={styles.Switch}
+          type="checkbox"
+          checked={value === "true"}
+        />
+      </div>
+    );
+  }
 );
 
 Switch.displayName = "Switch";

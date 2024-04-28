@@ -18,7 +18,7 @@ export const clientValidatorSchema = yup
         (val) => !(val.length < 5)
       ),
     accountType: yup.mixed<ClientAccount>().oneOf(Object.values(ClientAccount)),
-    status: yup.string(),
+    status: yup.boolean(),
     contacts: yup.string(),
   })
   .required();

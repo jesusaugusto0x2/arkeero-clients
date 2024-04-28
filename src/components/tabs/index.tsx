@@ -29,7 +29,17 @@ export const Tabs: FC<Props> = ({ children, defaultKey, className }) => {
           />
         ))}
       </ul>
-      {children[selectedTabIndex]}
+      {children.map((child, idx) => (
+        <div
+          key={idx}
+          style={{
+            display: idx !== selectedTabIndex ? "none" : "block",
+            position: "relative",
+          }}
+        >
+          {child}
+        </div>
+      ))}
     </div>
   );
 };
