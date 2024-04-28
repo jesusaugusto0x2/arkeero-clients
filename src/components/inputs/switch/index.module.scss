@@ -1,0 +1,67 @@
+@import "@/styles/variables.scss";
+@import "@/styles/classes.scss";
+
+.SwitchWrapper {
+  display: flex;
+  flex-direction: column;
+
+  label {
+    @extend .label;
+  }
+
+  input {
+    position: relative;
+    appearance: none;
+    outline: none;
+    -webkit-appearance: none;
+    background-color: $disabled-color;
+    border-radius: 50px;
+    transition: all 0.3s ease-in-out;
+    margin: 0;
+    padding: 0;
+    // min-width: 44px;
+    cursor: pointer;
+
+    &.large {
+      width: 44px;
+      height: 24px;
+
+      &::before {
+        top: 2px;
+        left: 2px;
+        width: 20px;
+        height: 20px;
+      }
+    }
+
+    &.small {
+      width: 22px;
+      height: 12px;
+
+      &::before {
+        top: 1px;
+        left: 1px;
+        width: 10px;
+        height: 10px;
+      }
+    }
+
+    &:before {
+      content: "";
+      position: absolute;
+
+      background-color: #fff;
+      border-radius: 50%;
+      transition: all 0.2s ease-in-out;
+    }
+
+    &:checked {
+      background: $primary-color;
+      background-size: 1em;
+
+      &:before {
+        transform: translateX(100%);
+      }
+    }
+  }
+}

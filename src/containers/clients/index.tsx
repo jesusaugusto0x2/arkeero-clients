@@ -1,42 +1,47 @@
 "use client";
 
-import { ClientCard, TextInput, Pagination } from "@/components";
-import { Client } from "@/models";
-import { FC, useState, useMemo } from "react";
+import { ClientCard, TextInput, Pagination, Button } from "@/components";
+import { FC, useState } from "react";
 import { useDebounce } from "@/hooks";
+import Link from "next/link";
+import { useSelector } from "react-redux";
+import { ClientSelectors } from "@/redux/clients/selectors";
+import { ClientsActions } from "@/redux/clients/actions";
+import { useAppDispatch } from "@/redux";
+import { useGetClientsQuery } from "@/redux/services/client";
 import styles from "./index.module.scss";
 
-const PAGE_SIZE = 4;
+export const Clients: FC = () => {
+  const dispatch = useAppDispatch();
 
-type Props = {
-  clients: Client[];
-};
-
-export const Clients: FC<Props> = ({ clients }) => {
   const [searchValue, setSearchValue] = useState<string>("");
-  const [page, setPage] = useState<number>(0);
   const debValue = useDebounce(searchValue);
 
-  const filteredClients = useMemo(() => {
-    const currentPage = page * PAGE_SIZE;
+  const totalPages = useSelector(ClientSelectors.selectTotalPages(debValue));
+  const currentPage = useSelector(ClientSelectors.selectCurrentPage);
+  const filteredClients = useSelector(
+    ClientSelectors.selectFilteredClients(debValue)
+  );
 
-    return clients
-      .filter((client) =>
-        client.name.toLowerCase().includes(debValue.toLowerCase())
-      )
-      .slice(currentPage, currentPage + PAGE_SIZE);
-  }, [clients, debValue, page]);
+  const { isLoading, isError } = useGetClientsQuery(null);
 
-  const totalPages = useMemo(() => {
-    const dataLength = !debValue ? clients.length : filteredClients.length;
+  if (isLoading) {
+    return <h2>Loading...</h2>;
+  }
 
-    return Math.ceil(dataLength / PAGE_SIZE);
-  }, [clients.length, filteredClients.length, debValue]);
+  if (isError) {
+    return <h2>Error...</h2>;
+  }
 
   return (
     <section className={styles.Clients}>
       <div>
-        <h1>Clients List</h1>
+        <div className={styles.titleHeader}>
+          <h1>Clients List</h1>
+          <Link href="/clients/new">
+            <Button text="Add new client" />
+          </Link>
+        </div>
         <TextInput
           placeholder="Search clients by name"
           onChange={(e) => setSearchValue(e.target.value)}
@@ -55,8 +60,10 @@ export const Clients: FC<Props> = ({ clients }) => {
       </div>
       <Pagination
         totalPages={totalPages}
-        currentPage={page}
-        onPageSelect={(pageNum) => setPage(pageNum)}
+        currentPage={currentPage}
+        onPageSelect={(pageNum) =>
+          dispatch(ClientsActions.setCurrentPage(pageNum))
+        }
         horizontalAlignment="center"
       />
     </section>

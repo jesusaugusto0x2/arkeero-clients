@@ -6,11 +6,15 @@
   flex-direction: column;
 
   textarea {
-    @extend .textInput;
+    @extend .baseInput;
     resize: none;
   }
 
   .error {
     @extend .inputError;
+  }
+
+  label {
+    @extend .label;
   }
 }

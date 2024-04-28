@@ -17,3 +17,12 @@ export type Client = {
   name: string;
   status: ClientStatus;
 };
+
+export type ClientInput = {
+  name: string;
+  description: string;
+  accountType?: ClientAccount;
+  // status?: string | number | readonly string[] | undefined;
+  status?: boolean;
+  contacts?: string;
+};

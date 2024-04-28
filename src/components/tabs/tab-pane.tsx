@@ -1,9 +1,9 @@
-import { FC, ReactElement } from "react";
+import { FC, ReactElement, ReactNode } from "react";
 import styles from "./index.module.scss";
 
 type Props = {
   title: string;
-  children: ReactElement | ReactElement[];
+  children: ReactElement | ReactElement[] | ReactNode | ReactNode[];
 };
 
 export const TabPane: FC<Props> = ({ children }) => (

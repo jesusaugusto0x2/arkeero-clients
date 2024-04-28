@@ -1,7 +1,21 @@
+@import "@/styles/classes.scss";
+
 .Clients {
+  @extend .responsiveWidths;
+
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+
+  div.titleHeader {
+    h1 {
+      color: $dark-color;
+    }
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
 
   ul {
     display: flex;

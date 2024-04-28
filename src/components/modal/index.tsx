@@ -10,6 +10,7 @@ type Props = {
   visible: boolean;
   title?: string;
   buttonText?: string;
+  cancelText?: string;
   onClose?: () => void;
   onButtonClick?: () => void;
 };
@@ -19,6 +20,7 @@ export const Modal: FC<PropsWithChildren<Props>> = ({
   title,
   children,
   buttonText = "Accept",
+  cancelText = "Cancel",
   onClose,
   onButtonClick,
 }) => {
@@ -49,6 +51,9 @@ export const Modal: FC<PropsWithChildren<Props>> = ({
         {children}
         <div className={styles.footer}>
           <Button text={buttonText} onClick={onButtonClick} />
+          {cancelText && (
+            <Button variant="link" text={cancelText} onClick={onClose} />
+          )}
         </div>
       </div>
     </div>,
