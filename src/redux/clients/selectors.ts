@@ -13,6 +13,11 @@ const selectCurrentPage = createSelector(
   ({ currentPage }) => currentPage
 );
 
+const selectClientOneInput = createSelector(
+  selectClientsState,
+  ({ clientOneInput }) => clientOneInput
+);
+
 const selectFilteredClients = (search: string) =>
   createSelector(selectClientsState, ({ clients, currentPage, pageSize }) => {
     const offset = currentPage * pageSize;
@@ -37,6 +42,7 @@ const selectTotalPages = (search: string) =>
 export const ClientSelectors = {
   selectClientsList,
   selectCurrentPage,
+  selectClientOneInput,
   selectFilteredClients,
   selectTotalPages,
 };

@@ -11,11 +11,18 @@ import { Modal } from "@/components/modal";
 import styles from "./index.module.scss";
 
 type Props = {
+  canPerformForcedUpdate?: boolean;
+  forcedUpdateInput?: ClientInput;
   onFormValuesChange?: (input: Partial<ClientInput>) => void;
 };
 
-export const ClientForm: FC<Props> = ({ onFormValuesChange }) => {
+export const ClientForm: FC<Props> = ({
+  canPerformForcedUpdate = false,
+  forcedUpdateInput,
+  onFormValuesChange,
+}) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [forcedUpdateVal, setForcedUpdateVal] = useState(false);
 
   const {
     control,
@@ -23,6 +30,7 @@ export const ClientForm: FC<Props> = ({ onFormValuesChange }) => {
     handleSubmit,
     reset,
     watch,
+    setValue,
   } = useForm<ClientInput>({
     resolver: yupResolver(clientValidatorSchema) as Resolver<ClientInput | any>,
     mode: "all",
@@ -34,9 +42,7 @@ export const ClientForm: FC<Props> = ({ onFormValuesChange }) => {
       return;
     }
 
-    const subscription = watch((value) => {
-      onFormValuesChange(value);
-    });
+    const subscription = watch((value) => onFormValuesChange(value));
 
     return () => subscription.unsubscribe();
   }, [watch, onFormValuesChange]);
@@ -44,6 +50,17 @@ export const ClientForm: FC<Props> = ({ onFormValuesChange }) => {
   const action: () => void = handleSubmit(async (data) => {
     await handleClientData(data);
   });
+
+  const applyForcedUpdate = () => {
+    if (!forcedUpdateInput) {
+      return;
+    }
+
+    Object.keys(forcedUpdateInput).map((key) => {
+      const val = forcedUpdateInput[key as keyof ClientInput];
+      setValue(key as keyof ClientInput, val);
+    });
+  };
 
   return (
     <>
@@ -114,6 +131,31 @@ export const ClientForm: FC<Props> = ({ onFormValuesChange }) => {
           onClick={() => setIsModalVisible(true)}
         />
       </form>
+      {canPerformForcedUpdate && (
+        <div className={styles.UpdateValuesDivider}>
+          <hr />
+          <Switch
+            label={
+              <span>
+                Load values from <strong>Client One</strong> form.{" "}
+                <small>(Can only be done once.)</small>
+              </span>
+            }
+            value={forcedUpdateVal.toString()}
+            onChange={(e) => {
+              const value = e.target.checked;
+
+              if (forcedUpdateVal) {
+                return;
+              }
+
+              setForcedUpdateVal(value);
+              applyForcedUpdate();
+            }}
+            variant="small"
+          />
+        </div>
+      )}
       <Modal
         title="Save Data"
         visible={isValid && isModalVisible}

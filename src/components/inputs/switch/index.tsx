@@ -1,19 +1,21 @@
-import React, { InputHTMLAttributes, forwardRef } from "react";
+import React, { InputHTMLAttributes, ReactNode, forwardRef } from "react";
 import styles from "./index.module.scss";
+import cx from "classnames";
 
 type Props = InputHTMLAttributes<HTMLInputElement> & {
-  label?: string;
+  label?: ReactNode;
+  variant?: "small" | "large";
 };
 
 export const Switch = forwardRef<HTMLInputElement, Props>(
-  ({ label, value, ...props }, ref) => {
+  ({ label, value, variant = "large", ...props }, ref) => {
     return (
-      <div className={styles.SwitchWrapper}>
+      <div className={cx(styles.SwitchWrapper)}>
         {label && <label htmlFor={props.name}>{label}</label>}
         <input
           {...props}
           ref={ref}
-          className={styles.Switch}
+          className={styles[variant]}
           type="checkbox"
           checked={value === "true"}
         />
