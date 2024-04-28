@@ -8,6 +8,35 @@ const selectClientsList = createSelector(
   ({ clients }) => clients
 );
 
+const selectCurrentPage = createSelector(
+  selectClientsState,
+  ({ currentPage }) => currentPage
+);
+
+const selectFilteredClients = (search: string) =>
+  createSelector(selectClientsState, ({ clients, currentPage, pageSize }) => {
+    const offset = currentPage * pageSize;
+
+    return clients
+      .filter((client) =>
+        client.name.toLowerCase().includes(search.toLowerCase())
+      )
+      .slice(offset, offset + pageSize);
+  });
+
+const selectTotalPages = (search: string) =>
+  createSelector(
+    selectClientsState,
+    selectFilteredClients,
+    ({ clients, pageSize }, filteredClients) => {
+      const length = !search ? clients.length : filteredClients.length;
+      return Math.ceil(length / pageSize);
+    }
+  );
+
 export const ClientSelectors = {
   selectClientsList,
+  selectCurrentPage,
+  selectFilteredClients,
+  selectTotalPages,
 };

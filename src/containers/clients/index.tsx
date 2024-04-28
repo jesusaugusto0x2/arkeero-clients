@@ -1,29 +1,29 @@
 "use client";
 
 import { ClientCard, TextInput, Pagination, Button } from "@/components";
-import { Client } from "@/models";
-import { FC, useState, useMemo } from "react";
+import { FC, useState } from "react";
 import { useDebounce } from "@/hooks";
-import styles from "./index.module.scss";
 import Link from "next/link";
 import { useSelector } from "react-redux";
 import { ClientSelectors } from "@/redux/clients/selectors";
 import { ClientsActions } from "@/redux/clients/actions";
 import { useAppDispatch } from "@/redux";
 import { useGetClientsQuery } from "@/redux/services/client";
-
-const PAGE_SIZE = 4;
+import styles from "./index.module.scss";
 
 export const Clients: FC = () => {
   const dispatch = useAppDispatch();
 
   const [searchValue, setSearchValue] = useState<string>("");
-  const [page, setPage] = useState<number>(0);
   const debValue = useDebounce(searchValue);
 
-  const clientList = useSelector(ClientSelectors.selectClientsList);
+  const totalPages = useSelector(ClientSelectors.selectTotalPages(debValue));
+  const currentPage = useSelector(ClientSelectors.selectCurrentPage);
+  const filteredClients = useSelector(
+    ClientSelectors.selectFilteredClients(debValue)
+  );
 
-  const { data, isLoading, isError } = useGetClientsQuery(null);
+  const { isLoading, isError } = useGetClientsQuery(null);
 
   if (isLoading) {
     return <h2>Loading...</h2>;
@@ -32,22 +32,6 @@ export const Clients: FC = () => {
   if (isError) {
     return <h2>Error...</h2>;
   }
-
-  // const filteredClients = useMemo(() => {
-  //   const currentPage = page * PAGE_SIZE;
-
-  //   return clientList
-  //     .filter((client) =>
-  //       client.name.toLowerCase().includes(debValue.toLowerCase())
-  //     )
-  //     .slice(currentPage, currentPage + PAGE_SIZE);
-  // }, [clientList, debValue, page]);
-
-  // const totalPages = useMemo(() => {
-  //   const dataLength = !debValue ? clientList.length : filteredClients.length;
-
-  //   return Math.ceil(dataLength / PAGE_SIZE);
-  // }, [clientList.length, filteredClients.length, debValue]);
 
   return (
     <section className={styles.Clients}>
@@ -63,7 +47,7 @@ export const Clients: FC = () => {
           onChange={(e) => setSearchValue(e.target.value)}
         />
         <ul>
-          {clientList.map((client) => (
+          {filteredClients.map((client) => (
             <ClientCard
               key={client.id}
               accountType={client.accountType}
@@ -74,12 +58,14 @@ export const Clients: FC = () => {
           ))}
         </ul>
       </div>
-      {/* <Pagination
+      <Pagination
         totalPages={totalPages}
-        currentPage={page}
-        onPageSelect={(pageNum) => setPage(pageNum)}
+        currentPage={currentPage}
+        onPageSelect={(pageNum) =>
+          dispatch(ClientsActions.setCurrentPage(pageNum))
+        }
         horizontalAlignment="center"
-      /> */}
+      />
     </section>
   );
 };
