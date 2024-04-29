@@ -26,7 +26,9 @@ export const Clients: FC = () => {
   const [searchValue, setSearchValue] = useState<string>("");
   const debValue = useDebounce(searchValue);
 
-  // const totalPages = useSelector(ClientSelectors.selectTotalPages(debValue));
+  const totalClientsCount = useSelector(
+    ClientSelectors.selectTotalClientsCount
+  );
   const currentPage = useSelector(ClientSelectors.selectCurrentPage);
   const clientToEdit = useSelector(ClientSelectors.selectClientToEdit);
   const filteredClients = useSelector(
@@ -42,6 +44,11 @@ export const Clients: FC = () => {
   if (isError) {
     return <h2>Error...</h2>;
   }
+
+  // Calculate in local state to prevent selector issues
+  const totalPages = debValue
+    ? Math.ceil(filteredClients.length / 4)
+    : Math.ceil(totalClientsCount / 4);
 
   return (
     <>
@@ -73,7 +80,7 @@ export const Clients: FC = () => {
           </ul>
         </div>
         <Pagination
-          totalPages={4}
+          totalPages={totalPages}
           currentPage={currentPage}
           onPageSelect={(pageNum) =>
             dispatch(ClientsActions.setCurrentPage(pageNum))

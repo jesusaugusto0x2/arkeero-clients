@@ -8,6 +8,11 @@ const selectClientsList = createSelector(
   ({ clients }) => clients
 );
 
+const selectTotalClientsCount = createSelector(
+  selectClientsState,
+  ({ clients }) => clients.length
+);
+
 const selectCurrentPage = createSelector(
   selectClientsState,
   ({ currentPage }) => currentPage
@@ -49,6 +54,7 @@ export const ClientSelectors = {
   selectCurrentPage,
   selectClientOneInput,
   selectClientToEdit,
+  selectTotalClientsCount,
   selectFilteredClients,
   selectTotalPages,
 };
