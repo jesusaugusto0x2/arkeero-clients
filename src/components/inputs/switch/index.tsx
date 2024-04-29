@@ -5,12 +5,13 @@ import cx from "classnames";
 type Props = InputHTMLAttributes<HTMLInputElement> & {
   label?: ReactNode;
   variant?: "small" | "large";
+  className?: string;
 };
 
 export const Switch = forwardRef<HTMLInputElement, Props>(
-  ({ label, value, variant = "large", ...props }, ref) => {
+  ({ className, label, value, variant = "large", ...props }, ref) => {
     return (
-      <div className={cx(styles.SwitchWrapper)}>
+      <div className={cx(styles.SwitchWrapper, className)}>
         {label && <label htmlFor={props.name}>{label}</label>}
         <input
           {...props}

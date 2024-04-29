@@ -16,9 +16,9 @@ import { ClientSelectors } from "@/redux/clients/selectors";
 import { ClientsActions } from "@/redux/clients/actions";
 import { useAppDispatch } from "@/redux";
 import { useGetClientsQuery } from "@/redux/services/client";
-import styles from "./index.module.scss";
 import { ClientUtils } from "@/utils";
 import { Client } from "@/models";
+import styles from "./index.module.scss";
 
 export const Clients: FC = () => {
   const dispatch = useAppDispatch();
@@ -64,6 +64,9 @@ export const Clients: FC = () => {
                 client={client}
                 onEdit={(client) =>
                   dispatch(ClientsActions.setClientToEdit(client))
+                }
+                onStatusChange={(client) =>
+                  dispatch(ClientsActions.updateClient(client))
                 }
               />
             ))}
