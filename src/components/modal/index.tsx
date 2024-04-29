@@ -51,7 +51,7 @@ export const Modal: FC<PropsWithChildren<Props>> = ({
         {children}
         <div className={styles.footer}>
           <Button text={buttonText} onClick={onButtonClick} />
-          {cancelText && (
+          {onClose && (
             <Button variant="link" text={cancelText} onClick={onClose} />
           )}
         </div>

@@ -1,6 +1,13 @@
 "use client";
 
-import { ClientCard, TextInput, Pagination, Button } from "@/components";
+import {
+  ClientCard,
+  TextInput,
+  Pagination,
+  Button,
+  Modal,
+  ClientForm,
+} from "@/components";
 import { FC, useState } from "react";
 import { useDebounce } from "@/hooks";
 import Link from "next/link";
@@ -10,6 +17,8 @@ import { ClientsActions } from "@/redux/clients/actions";
 import { useAppDispatch } from "@/redux";
 import { useGetClientsQuery } from "@/redux/services/client";
 import styles from "./index.module.scss";
+import { ClientUtils } from "@/utils";
+import { Client } from "@/models";
 
 export const Clients: FC = () => {
   const dispatch = useAppDispatch();
@@ -17,8 +26,9 @@ export const Clients: FC = () => {
   const [searchValue, setSearchValue] = useState<string>("");
   const debValue = useDebounce(searchValue);
 
-  const totalPages = useSelector(ClientSelectors.selectTotalPages(debValue));
+  // const totalPages = useSelector(ClientSelectors.selectTotalPages(debValue));
   const currentPage = useSelector(ClientSelectors.selectCurrentPage);
+  const clientToEdit = useSelector(ClientSelectors.selectClientToEdit);
   const filteredClients = useSelector(
     ClientSelectors.selectFilteredClients(debValue)
   );
@@ -34,38 +44,63 @@ export const Clients: FC = () => {
   }
 
   return (
-    <section className={styles.Clients}>
-      <div>
-        <div className={styles.titleHeader}>
-          <h1>Clients List</h1>
-          <Link href="/clients/new">
-            <Button text="Add new client" />
-          </Link>
+    <>
+      <section className={styles.Clients}>
+        <div>
+          <div className={styles.titleHeader}>
+            <h1>Clients List</h1>
+            <Link href="/clients/new">
+              <Button text="Add new client" />
+            </Link>
+          </div>
+          <TextInput
+            placeholder="Search clients by name"
+            onChange={(e) => setSearchValue(e.target.value)}
+          />
+          <ul>
+            {filteredClients.map((client) => (
+              <ClientCard
+                key={client.id}
+                client={client}
+                onEdit={(client) =>
+                  dispatch(ClientsActions.setClientToEdit(client))
+                }
+              />
+            ))}
+          </ul>
         </div>
-        <TextInput
-          placeholder="Search clients by name"
-          onChange={(e) => setSearchValue(e.target.value)}
+        <Pagination
+          totalPages={4}
+          currentPage={currentPage}
+          onPageSelect={(pageNum) =>
+            dispatch(ClientsActions.setCurrentPage(pageNum))
+          }
+          horizontalAlignment="center"
         />
-        <ul>
-          {filteredClients.map((client) => (
-            <ClientCard
-              key={client.id}
-              accountType={client.accountType}
-              status={client.status}
-              description={client.description}
-              name={client.name}
-            />
-          ))}
-        </ul>
-      </div>
-      <Pagination
-        totalPages={totalPages}
-        currentPage={currentPage}
-        onPageSelect={(pageNum) =>
-          dispatch(ClientsActions.setCurrentPage(pageNum))
-        }
-        horizontalAlignment="center"
-      />
-    </section>
+      </section>
+      {clientToEdit && (
+        <Modal
+          visible={clientToEdit !== null}
+          title="Edit Client"
+          buttonText="Close"
+          onButtonClick={() => {
+            dispatch(ClientsActions.setClientToEdit(null));
+          }}
+        >
+          <ClientForm
+            submitMode="client"
+            defaultValues={ClientUtils.parseClientToInput(clientToEdit)}
+            onSubmit={(data) => {
+              const client: Client = {
+                ...clientToEdit,
+                ...ClientUtils.parseInputValuesToClient(data),
+              };
+
+              dispatch(ClientsActions.updateClient(client));
+            }}
+          />
+        </Modal>
+      )}
+    </>
   );
 };

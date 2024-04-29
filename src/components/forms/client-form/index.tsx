@@ -1,5 +1,5 @@
 import { FC, useEffect, useState } from "react";
-import { Controller, Resolver, useForm } from "react-hook-form";
+import { Controller, Resolver, useForm, SubmitHandler } from "react-hook-form";
 import { Select, Switch, TextArea, TextInput } from "@/components/inputs";
 import { Button } from "@/components/button";
 import { handleClientData } from "@/app/actions";
@@ -13,13 +13,19 @@ import styles from "./index.module.scss";
 type Props = {
   canPerformForcedUpdate?: boolean;
   forcedUpdateInput?: ClientInput;
+  defaultValues?: ClientInput;
+  submitMode?: "client" | "server";
   onFormValuesChange?: (input: Partial<ClientInput>) => void;
+  onSubmit?: (data: ClientInput) => void;
 };
 
 export const ClientForm: FC<Props> = ({
   canPerformForcedUpdate = false,
   forcedUpdateInput,
+  defaultValues,
+  submitMode = "server",
   onFormValuesChange,
+  onSubmit,
 }) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [forcedUpdateVal, setForcedUpdateVal] = useState(false);
@@ -34,7 +40,7 @@ export const ClientForm: FC<Props> = ({
   } = useForm<ClientInput>({
     resolver: yupResolver(clientValidatorSchema) as Resolver<ClientInput | any>,
     mode: "all",
-    defaultValues: CLIENT_FORM_DEFAULT_VALUES,
+    defaultValues: defaultValues || CLIENT_FORM_DEFAULT_VALUES,
   });
 
   useEffect(() => {
@@ -47,7 +53,7 @@ export const ClientForm: FC<Props> = ({
     return () => subscription.unsubscribe();
   }, [watch, onFormValuesChange]);
 
-  const action: () => void = handleSubmit(async (data) => {
+  const serverSubmit: () => void = handleSubmit(async (data) => {
     await handleClientData(data);
   });
 
@@ -64,7 +70,14 @@ export const ClientForm: FC<Props> = ({
 
   return (
     <>
-      <form className={styles.ClientForm} onSubmit={(e) => e.preventDefault()}>
+      <form
+        className={styles.ClientForm}
+        onSubmit={
+          submitMode === "server"
+            ? (e) => e.preventDefault()
+            : handleSubmit(onSubmit as SubmitHandler<ClientInput>)
+        }
+      >
         <Controller
           name="name"
           control={control}
@@ -156,18 +169,20 @@ export const ClientForm: FC<Props> = ({
           />
         </div>
       )}
-      <Modal
-        title="Save Data"
-        visible={isValid && isModalVisible}
-        onButtonClick={() => {
-          setIsModalVisible(false);
-          action();
-          reset();
-        }}
-        onClose={() => setIsModalVisible(false)}
-      >
-        <p>Are you sure to save the client data?</p>
-      </Modal>
+      {submitMode === "server" && (
+        <Modal
+          title="Save Data"
+          visible={isValid && isModalVisible}
+          onButtonClick={() => {
+            setIsModalVisible(false);
+            serverSubmit();
+            reset();
+          }}
+          onClose={() => setIsModalVisible(false)}
+        >
+          <p>Are you sure to save the client data?</p>
+        </Modal>
+      )}
     </>
   );
 };

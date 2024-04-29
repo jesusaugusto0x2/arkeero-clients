@@ -1,8 +1,8 @@
-import React, { InputHTMLAttributes, forwardRef } from "react";
+import React, { InputHTMLAttributes, ReactNode, forwardRef } from "react";
 import styles from "./index.module.scss";
 
 type Props = InputHTMLAttributes<HTMLInputElement> & {
-  label?: string;
+  label?: ReactNode;
   error?: string;
 };
 

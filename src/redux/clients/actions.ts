@@ -9,8 +9,16 @@ const updateClientOneInput = createAction<ClientInput>(
   "CLIENTS/UPDATE_CLIENT_ONE_INPUT"
 );
 
+const setClientToEdit = createAction<Client | null>(
+  "CLIENTS/SET_CLIENT_TO_EDIT"
+);
+
+const updateClient = createAction<Client>("CLIENTS/UPDATE_CLIENT");
+
 export const ClientsActions = {
   setClients,
   setCurrentPage,
   updateClientOneInput,
+  setClientToEdit,
+  updateClient,
 };

@@ -1,8 +1,6 @@
 import { FC } from "react";
 import { Button } from "..";
 import Image from "next/image";
-import ChevronLeftSrc from "@/assets/icons/chevron-left.svg";
-import ChevronRightSrc from "@/assets/icons/chevron-right.svg";
 import cx from "classnames";
 import styles from "./index.module.scss";
 
@@ -47,7 +45,12 @@ export const Pagination: FC<Props> = ({
     >
       <Button
         icon={
-          <Image src={ChevronLeftSrc} alt="chev_left" width={14} height={14} />
+          <Image
+            src="/images/icons/chevron-left.svg"
+            alt="chev_left"
+            width={14}
+            height={14}
+          />
         }
         variant="link"
         disabled={currentPage === 0}
@@ -79,7 +82,7 @@ export const Pagination: FC<Props> = ({
       <Button
         icon={
           <Image
-            src={ChevronRightSrc}
+            src="/images/icons/chevron-right.svg"
             alt="chev_right"
             width={14}
             height={14}
