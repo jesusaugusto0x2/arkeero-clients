@@ -8,7 +8,7 @@ import {
   Modal,
   ClientForm,
 } from "@/components";
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { useDebounce } from "@/hooks";
 import Link from "next/link";
 import { useSelector } from "react-redux";
@@ -23,19 +23,21 @@ import styles from "./index.module.scss";
 export const Clients: FC = () => {
   const dispatch = useAppDispatch();
 
-  const [searchValue, setSearchValue] = useState<string>("");
-  const debValue = useDebounce(searchValue);
+  const [localSearchValue, setLocalSearchValue] = useState<string>("");
+  const debValue = useDebounce(localSearchValue);
 
   const totalClientsCount = useSelector(
     ClientSelectors.selectTotalClientsCount
   );
   const currentPage = useSelector(ClientSelectors.selectCurrentPage);
   const clientToEdit = useSelector(ClientSelectors.selectClientToEdit);
-  const filteredClients = useSelector(
-    ClientSelectors.selectFilteredClients(debValue)
-  );
+  const filteredClients = useSelector(ClientSelectors.selectFilteredClients);
 
   const { isLoading, isError } = useGetClientsQuery(null);
+
+  useEffect(() => {
+    dispatch(ClientsActions.setSearchValue(debValue));
+  }, [debValue, dispatch]);
 
   if (isLoading) {
     return <h2>Loading...</h2>;
@@ -62,7 +64,7 @@ export const Clients: FC = () => {
           </div>
           <TextInput
             placeholder="Search clients by name"
-            onChange={(e) => setSearchValue(e.target.value)}
+            onChange={(e) => setLocalSearchValue(e.target.value)}
           />
           <ul>
             {filteredClients.map((client) => (

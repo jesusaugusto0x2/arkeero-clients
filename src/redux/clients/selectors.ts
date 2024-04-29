@@ -28,16 +28,23 @@ const selectClientToEdit = createSelector(
   ({ clientToEdit }) => clientToEdit
 );
 
-const selectFilteredClients = (search: string) =>
-  createSelector(selectClientsState, ({ clients, currentPage, pageSize }) => {
+const selectSearchValue = createSelector(
+  selectClientsState,
+  ({ searchValue }) => searchValue
+);
+
+const selectFilteredClients = createSelector(
+  selectClientsState,
+  ({ clients, currentPage, pageSize, searchValue }) => {
     const offset = currentPage * pageSize;
 
     return clients
       .filter((client) =>
-        client.name.toLowerCase().includes(search.toLowerCase())
+        client.name.toLowerCase().includes(searchValue.toLowerCase())
       )
       .slice(offset, offset + pageSize);
-  });
+  }
+);
 
 const selectTotalPages = (search: string) =>
   createSelector(
@@ -55,6 +62,7 @@ export const ClientSelectors = {
   selectClientOneInput,
   selectClientToEdit,
   selectTotalClientsCount,
+  selectSearchValue,
   selectFilteredClients,
   selectTotalPages,
 };
