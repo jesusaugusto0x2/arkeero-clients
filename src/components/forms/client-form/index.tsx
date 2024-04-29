@@ -4,7 +4,7 @@ import { Select, Switch, TextArea, TextInput } from "@/components/inputs";
 import { Button } from "@/components/button";
 import { handleClientData } from "@/app/actions";
 import { CLIENT_ACCOUNT_OPTIONS, CLIENT_FORM_DEFAULT_VALUES } from "@/consts";
-import { ClientInput } from "@/models";
+import { ClientInput, ClientStatus } from "@/models";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { clientValidatorSchema } from "@/validators/client";
 import { Modal } from "@/components/modal";
@@ -177,6 +177,7 @@ export const ClientForm: FC<Props> = ({
             setIsModalVisible(false);
             serverSubmit();
             reset();
+            setForcedUpdateVal(false);
           }}
           onClose={() => setIsModalVisible(false)}
         >
