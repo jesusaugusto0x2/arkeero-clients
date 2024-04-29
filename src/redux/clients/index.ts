@@ -10,6 +10,7 @@ interface ClientState {
   pageSize: number;
   currentPage: number;
   clientOneInput: ClientInput;
+  clientToEdit: Client | null;
 }
 
 const initialState: ClientState = {
@@ -17,6 +18,7 @@ const initialState: ClientState = {
   pageSize: PAGE_SIZE,
   currentPage: 0,
   clientOneInput: CLIENT_FORM_DEFAULT_VALUES,
+  clientToEdit: null,
 };
 
 const ClientsReducer = createReducer(initialState, (reducer) => {
@@ -44,6 +46,28 @@ const ClientsReducer = createReducer(initialState, (reducer) => {
     (state: ClientState, { payload }) => ({
       ...state,
       clientOneInput: payload,
+    })
+  );
+
+  //
+  reducer.addCase(
+    ClientsActions.setClientToEdit,
+    (state: ClientState, { payload }) => ({ ...state, clientToEdit: payload })
+  );
+
+  //
+  reducer.addCase(
+    ClientsActions.updateClient,
+    (state: ClientState, { payload }) => ({
+      ...state,
+      clients: state.clients.map((client) => {
+        if (payload.id === client.id) {
+          return payload;
+        }
+
+        return client;
+      }),
+      clientToEdit: null,
     })
   );
 

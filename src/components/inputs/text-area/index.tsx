@@ -1,9 +1,9 @@
-import React, { TextareaHTMLAttributes, forwardRef } from "react";
+import React, { ReactNode, TextareaHTMLAttributes, forwardRef } from "react";
 import styles from "./index.module.scss";
 
 type Props = TextareaHTMLAttributes<HTMLTextAreaElement> & {
   error?: string;
-  label?: string;
+  label?: ReactNode;
 };
 
 export const TextArea = forwardRef<HTMLTextAreaElement, Props>(
