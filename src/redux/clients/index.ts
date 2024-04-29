@@ -11,6 +11,7 @@ interface ClientState {
   currentPage: number;
   clientOneInput: ClientInput;
   clientToEdit: Client | null;
+  searchValue: string;
 }
 
 const initialState: ClientState = {
@@ -19,6 +20,7 @@ const initialState: ClientState = {
   currentPage: 0,
   clientOneInput: CLIENT_FORM_DEFAULT_VALUES,
   clientToEdit: null,
+  searchValue: "",
 };
 
 const ClientsReducer = createReducer(initialState, (reducer) => {
@@ -68,6 +70,16 @@ const ClientsReducer = createReducer(initialState, (reducer) => {
         return client;
       }),
       clientToEdit: null,
+    })
+  );
+
+  //
+  reducer.addCase(
+    ClientsActions.setSearchValue,
+    (state: ClientState, { payload }) => ({
+      ...state,
+      searchValue: payload,
+      currentPage: 0,
     })
   );
 

@@ -15,10 +15,13 @@ const setClientToEdit = createAction<Client | null>(
 
 const updateClient = createAction<Client>("CLIENTS/UPDATE_CLIENT");
 
+const setSearchValue = createAction<string>("CLIENTS/SET_SEARCH_VALUE");
+
 export const ClientsActions = {
   setClients,
   setCurrentPage,
   updateClientOneInput,
   setClientToEdit,
   updateClient,
+  setSearchValue,
 };

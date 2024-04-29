@@ -11,6 +11,7 @@ export const Header: FC = () => (
         alt="arkeero-logo"
         width={132}
         height={42}
+        priority
       />
     </Link>
   </header>
